@@ -1,37 +1,20 @@
-import Avatar from "@mui/material/Avatar"
-import Box from "@mui/material/Box"
-import Container from "@mui/material/Container"
-import Grid from "@mui/material/Grid"
-import Typography from "@mui/material/Typography"
-import LockIcon from "@mui/icons-material/Lock"
-import image from "../assets/result.svg"
-import { Link, useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
-import { Formik, Form } from "formik"
-import TextField from "@mui/material/TextField"
-import { object, string } from "yup"
-import LoadingButton from "@mui/lab/LoadingButton"
-import useAuthCall from "../hooks/useAuthCall"
+import { Link } from "react-router-dom";
+
+import image from "../assets/result.svg";
+import useAuthCall from "../hooks/useAuthCall";
+import LoginForm, { loginScheme } from "../components/LoginForm";
+
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import LockIcon from "@mui/icons-material/Lock";
+
+import { Formik } from "formik";
 
 const Login = () => {
-  const navigate = useNavigate()
-  const { currentUser, error, loading } = useSelector((state) => state?.auth)
-
-  const { login } = useAuthCall()
-
-  const loginScheme = object({
-    email: string()
-      .email("Lutfen valid bir email giriniz")
-      .required("Email zorunludur"),
-    password: string()
-      .required("password should be entered")
-      .min(8, "password should be at least 8 characters")
-      .max(20, "password should be at most 20 characters")
-      .matches(/\d+/, "Password should be at least one number")
-      .matches(/[a-z]/, "Password should be at least one lowercase letter")
-      .matches(/[A-Z]/, "Password should be at least one capital letter")
-      .matches(/[!,?{}><%&$#£+-.]+/, "Password should be at least one special character"),
-  });
+  const { login } = useAuthCall();
 
   return (
     <Container maxWidth="lg">
@@ -74,50 +57,12 @@ const Login = () => {
             initialValues={{ email: "", password: "" }}
             validationSchema={loginScheme}
             onSubmit={(values, actions) => {
-              login(values)
-              actions.resetForm()
-              actions.setSubmitting(false)
+              login(values);
+              actions.resetForm();
+              actions.setSubmitting(false);
             }}
-          >
-            {({ values, handleChange, handleBlur, errors, touched }) => (
-              <Form>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <TextField
-                    label="Email"
-                    name="email"
-                    id="email"
-                    type="email"
-                    variant="outlined"
-                    value={values?.email || ""}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={touched.email && Boolean(errors.email)}
-                    helperText={touched.email && errors.email}
-                  />
-                  <TextField
-                    label="Password"
-                    name="password"
-                    id="password"
-                    type="password"
-                    variant="outlined"
-                    value={values?.password || ""}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={touched.password && Boolean(errors.password)}
-                    helperText={touched.password && errors.password}
-                  />
-
-                  <LoadingButton
-                    type="submit"
-                    variant="contained"
-                    loading={loading}
-                  >
-                    Submit
-                  </LoadingButton>
-                </Box>
-              </Form>
-            )}
-          </Formik>
+            component={(props) => <LoginForm {...props} />}
+          ></Formik>
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
             <Link to="/register">Do you have not an account?</Link>
@@ -131,7 +76,7 @@ const Login = () => {
         </Grid>
       </Grid>
     </Container>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
