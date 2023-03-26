@@ -3,15 +3,22 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
-import { fetchFail, fetchStart, loginSuccess } from "../features/authSlice";
+import {
+  fetchFail,
+  fetchStart,
+  loginSuccess,
+  logoutSuccess,
+  registerSuccess,
+} from "../features/authSlice";
+
+import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
 const useAuthCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const login = async (userInfo) => {
-    const BASE_URL = process.env.REACT_APP_BASE_URL;
-
     dispatch(fetchStart());
     try {
       const { data } = await axios.post(
