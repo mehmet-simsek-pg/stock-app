@@ -17,6 +17,30 @@ const useStockCall = () => {
     }
   };
 
+  const createStockData = async (url, firm) => {
+    dispatch(fetchStart());
+    try {
+      await axiosWithToken.post(`stock/${url}/`, firm);
+      toastSuccessNotify(`${url} successfuly created`);
+      getStockData(url);
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify(`${url} could not be created`);
+    }
+  };
+
+  const updateStockData = async (url, id, firm) => {
+    dispatch(fetchStart());
+    try {
+      await axiosWithToken.put(`stock/${url}/${id}/`, firm);
+      toastSuccessNotify(`${url} successfuly updated`);
+      getStockData(url);
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify(`${url} could not be edited`);
+    }
+  };
+
   const deleteStockData = async (url, id) => {
     dispatch(fetchStart());
     try {
@@ -29,7 +53,7 @@ const useStockCall = () => {
     }
   };
 
-  return { getStockData, deleteStockData };
+  return { getStockData, createStockData, updateStockData, deleteStockData };
 };
 
 export default useStockCall;

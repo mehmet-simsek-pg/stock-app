@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 
 import { btnStyle, flex } from "../styles/globalStyle";
 import useStockCall from "../hooks/useStockCall";
@@ -10,9 +11,20 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
+import EditFirmForm from "./EditFirmForm";
 
 export default function FirmCard({ firm }) {
   const { deleteStockData } = useStockCall();
+
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Card
@@ -44,7 +56,8 @@ export default function FirmCard({ firm }) {
         Phone: {firm?.phone}
       </Typography>
       <CardActions sx={flex}>
-        <EditIcon sx={btnStyle} />
+        <EditIcon sx={btnStyle} onClick={handleOpen} />
+        <EditFirmForm open={open} handleClose={handleClose} firm={firm} />
         <DeleteOutlineIcon
           sx={btnStyle}
           onClick={() => deleteStockData("firms", firm.id)}
