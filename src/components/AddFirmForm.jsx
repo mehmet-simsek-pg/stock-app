@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import useStockCall from "../hooks/useStockCall";
 import Dialog from "@mui/material/Dialog";
+import Stack from "@mui/material/Stack";
 
 const AddFirmForm = ({ open, handleClose }) => {
   const style = { margin: "1rem", width: 500 };
@@ -45,7 +46,8 @@ const AddFirmForm = ({ open, handleClose }) => {
       >
         <TextField
           label="Firm Name"
-          variant="filled"
+          id="outlined-basic"
+          variant="outlined"
           required
           value={firmName}
           onChange={(e) => setFirmName(e.target.value)}
@@ -53,7 +55,8 @@ const AddFirmForm = ({ open, handleClose }) => {
         />
         <TextField
           label="Phone"
-          variant="filled"
+          id="outlined-basic"
+          variant="outlined"
           required
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
@@ -62,7 +65,8 @@ const AddFirmForm = ({ open, handleClose }) => {
         <TextField
           label="Address"
           type="text"
-          variant="filled"
+          id="outlined-basic"
+          variant="outlined"
           required
           value={address}
           onChange={(e) => setAddress(e.target.value)}
@@ -71,28 +75,22 @@ const AddFirmForm = ({ open, handleClose }) => {
         <TextField
           label="Image"
           type="text"
-          variant="filled"
+          id="outlined-basic"
+          variant="outlined"
           required
           value={image}
           onChange={(e) => setImage(e.target.value)}
           style={style}
         />
         <div>
-          <Button
-            variant="contained"
-            sx={{ margin: "2rem" }}
-            onClick={handleClose}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            sx={{ margin: "2rem" }}
-          >
-            Submit
-          </Button>
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="contained" color="success">
+              Submit
+            </Button>
+          </Stack>
         </div>
       </form>
     </Dialog>
