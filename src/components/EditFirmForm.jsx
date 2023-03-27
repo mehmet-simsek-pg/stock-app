@@ -75,12 +75,19 @@ const EditFirmForm = ({ open, handleClose, firm }) => {
           style={style}
         />
         <div>
-          <Stack direction="row" spacing={2}>
+          <Stack
+            direction="row"
+            spacing={2}
+            width={500}
+            display={"flex"}
+            justifyContent={"center"}
+            marginBottom={2}
+          >
+            <Button variant="contained" color="success" onClick={handleSubmit}>
+              Submit
+            </Button>
             <Button variant="contained" onClick={handleClose}>
               Cancel
-            </Button>
-            <Button variant="contained" color="success">
-              Submit
             </Button>
           </Stack>
         </div>

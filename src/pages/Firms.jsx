@@ -13,18 +13,23 @@ const Firms = () => {
   const { getStockData } = useStockCall();
   const { firms } = useSelector((state) => state.stock);
 
- const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
- const handleOpen = () => {
-   setOpen(true);
- };
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
- const handleClose = () => {
-   setOpen(false);
- };
-  useEffect(() => {
-    getStockData("firms");
-  }, []);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
+  useEffect(
+    () => {
+      getStockData("firms");
+    },
+    // eslint-disable-next-line
+    []
+  );
 
   return (
     <div>
@@ -32,8 +37,10 @@ const Firms = () => {
         Firm
       </Typography>
 
-      <Button variant="contained" onClick={handleOpen}>New Firm</Button>
-      <AddFirmForm open={open} handleClose={handleClose}/>
+      <Button variant="contained" onClick={handleOpen}>
+        New Firm
+      </Button>
+      <AddFirmForm open={open} handleClose={handleClose} />
 
       <Grid container sx={flex}>
         {firms?.map((firm) => (

@@ -87,7 +87,7 @@ const AddFirmForm = ({ open, handleClose }) => {
             <Button variant="contained" onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="contained" color="success">
+            <Button variant="contained" color="success" onClick={handleSubmit}>
               Submit
             </Button>
           </Stack>
